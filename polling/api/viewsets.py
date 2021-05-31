@@ -1,6 +1,6 @@
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import ListModelMixin, CreateModelMixin
-from .serializers import PollSerializer
+from .serializers import PollSerializer, UserAnswerSerializer
 from ..models import Poll
 from rest_framework.decorators import action
 from rest_framework.response import Response

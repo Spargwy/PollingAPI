@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Простейший опросник
 
 Перед запуском необходимо установить зависимости командой  
@@ -20,3 +21,6 @@ python manage.py createsuperuser --email admin@example.com --username admin
 ```
 python3 manage.py runserver
 ```
+=======
+# PollingAPI
+>>>>>>> 0e8cc3292ed162ceb5952bf9c108ba238f8c8f68
