@@ -1,9 +1,15 @@
+from django.contrib.auth import authenticate, login
+
 from rest_framework.viewsets import ModelViewSet
-from .serializers import PollSerializer, UserAnswerSerializer, UserAnswerListSerializer
-from ..models import Poll
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAdminUser, SAFE_METHODS, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAdminUser, SAFE_METHODS
+from rest_framework import views
+from rest_framework import status
+
+from .permissions import AnonymousOnly
+from .serializers import PollSerializer, UserAnswerSerializer, UserAnswerListSerializer
+from ..models import Poll
 
 
 class PollViewSet(ModelViewSet):
@@ -32,3 +38,25 @@ class PollViewSet(ModelViewSet):
     def get_user_answers(self, request, user_id):
         answers = request.user.answers.all()
         return Response(UserAnswerListSerializer(answers, many=True).data)
+
+
+class LoginView(views.APIView):
+    permission_classes = (AnonymousOnly,)
+
+    def post(self, request, format=None):  # noqa
+        data = request.data
+
+        username = data.get('username', None)
+        password = data.get('password', None)
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+
+                return Response(status=status.HTTP_200_OK)
+            else:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)

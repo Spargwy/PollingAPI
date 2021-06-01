@@ -1,13 +1,15 @@
 from django.contrib import admin
+from nested_admin.nested import NestedModelAdmin, NestedStackedInline
+
 from .models import Poll, Question, Choice
 
 
-class ChoiceAdmin(admin.StackedInline):
+class ChoiceAdmin(NestedStackedInline):
     model = Choice
     extra = 1
 
 
-class QuestionAdmin(admin.StackedInline):
+class QuestionAdmin(NestedStackedInline):
     inlines = (ChoiceAdmin,)
     model = Question
     extra = 1
@@ -15,7 +17,7 @@ class QuestionAdmin(admin.StackedInline):
 
 
 @admin.register(Poll)
-class PollAdmin(admin.ModelAdmin):
+class PollAdmin(NestedModelAdmin):
     inlines = (QuestionAdmin,)
 
     def get_readonly_fields(self, request, obj=None) -> list:

@@ -94,20 +94,17 @@ class PollSerializer(serializers.ModelSerializer):
                 Choice.objects.create(question=question, **choice)
         return poll
 
-    def update(self, instance, validated_data):
-        print(validated_data)
-
 
 class PollShortSerializer(serializers.ModelSerializer):
     class Meta:
         model = Poll
-        fields = ('')
+        fields = ('id', 'name', 'start_date', 'finish_date', 'description')
 
 
 class QuestionShortSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ('')
+        fields = ('title', 'description', 'choices')
 
 
 class UserAnswerListSerializer(serializers.ModelSerializer):

@@ -45,26 +45,3 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.user
-
-
-
-{
-    "name": "test",
-    "start_date": "2021-01-01T00:00",
-    "finish_date": "2021-01-01T00:00",
-    "description": "test desc",
-    "questions":
-        [
-            {
-                "type": "single",
-                "title": "test title",
-                "description": "test desc",
-                "choices":
-                    [
-                        {
-                            "title": "test tirqewgw"
-                        }
-        ]
-            }
-        ]
-}
