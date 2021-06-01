@@ -1,14 +1,14 @@
 from django.contrib import admin
-from .models import Poll, Question, Answer
+from .models import Poll, Question, Choice
 
 
-class AnswersAdmin(admin.StackedInline):
-    model = Answer()
+class ChoiceAdmin(admin.StackedInline):
+    model = Choice
     extra = 1
 
 
 class QuestionAdmin(admin.StackedInline):
-    inlines = (AnswersAdmin,)
+    inlines = (ChoiceAdmin,)
     model = Question
     extra = 1
     min_num = 1
